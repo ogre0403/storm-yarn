@@ -97,7 +97,9 @@ class Util {
     ZipEntry entry = zipInputStream.getNextEntry();
     while (entry != null) {
       String entryName = entry.getName();
-      if (entryName.matches("^storm(-" + stormVersion + ")?/")) {
+      //if (entryName.matches("^storm(-" + stormVersion + ")?/")) {
+        if (entryName.matches("^apache-storm(-" + stormVersion + ")?/") ||
+                    entryName.matches("^storm(-" + stormVersion + ")?/")  ) {
         fsInputStream.close();
         return entryName.replace("/", "");
       }
