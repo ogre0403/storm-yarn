@@ -81,7 +81,8 @@ public class StormOnYarn {
     private StormOnYarn(ApplicationId appId, @SuppressWarnings("rawtypes") Map stormConf) {        
         _hadoopConf = new YarnConfiguration();  
         _yarnRMaddr = _hadoopConf.getSocketAddr(YarnConfiguration.RM_ADDRESS, YarnConfiguration.DEFAULT_RM_ADDRESS, YarnConfiguration.DEFAULT_RM_PORT);
-        _yarn = new YarnClientImpl(_yarnRMaddr);
+        //_yarn = new YarnClientImpl(_yarnRMaddr);
+        _yarn = new YarnClientImpl();
         _stormConf = stormConf;
         _appId = appId;
         _yarn.init(_hadoopConf);

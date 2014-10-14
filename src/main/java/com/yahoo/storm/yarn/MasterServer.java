@@ -69,13 +69,13 @@ public class MasterServer extends ThriftServer {
               // We always send 50% progress.
               AllocateResponse allocResponse = client.allocate(0.5f);
 
-              if (allocResponse.getAMResponse().getReboot()) {
+              if (allocResponse.getReboot()) {
                 LOG.info("Got Reboot from the RM");
                 _handler.stop();
                 System.exit(0);
               }
 
-              List<Container> allocatedContainers = allocResponse.getAMResponse().getAllocatedContainers();
+              List<Container> allocatedContainers = allocResponse.getAllocatedContainers();
               if (allocatedContainers.size() > 0) {
                 // Add newly allocated containers to the client.
                 LOG.debug("HB: Received allocated containers (" + allocatedContainers.size() + ")");
@@ -90,7 +90,7 @@ public class MasterServer extends ThriftServer {
               }
 
               List<ContainerStatus> completedContainers =
-                  allocResponse.getAMResponse().getCompletedContainersStatuses();
+                  allocResponse.getCompletedContainersStatuses();
               
               if (completedContainers.size() > 0 && client.supervisorsAreToRun()) {
                 LOG.debug("HB: Containers completed (" + completedContainers.size() + "), so releasing them.");
